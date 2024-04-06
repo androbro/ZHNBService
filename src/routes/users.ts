@@ -1,13 +1,25 @@
-import express, { Express, Request, Response } from "express";
+import express, { Request, Response } from "express";
 
 const router = express.Router();
 
 router.get("/", (req: Request, res: Response) => {
-	res.send("Express + TypeScript Server USER");
+	res.send("user list");
 });
 
-router.get("/new", (req: Request, res: Response) => {
+router.post("/", (req: Request, res: Response) => {
 	res.send("New User");
 });
 
-export default router;	
+router
+	.route("/:id")
+	.get((req: Request, res: Response) => {
+		res.send(`user with id ${req.params.id}`);
+	})
+	.put((req: Request, res: Response) => {
+		res.send(`update user with id ${req.params.id}`);
+	})
+	.delete((req: Request, res: Response) => {
+		res.send(`delete user with id ${req.params.id}`);
+	});
+
+export default router;
